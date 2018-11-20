@@ -1,25 +1,28 @@
 public class Main
 {
-    public static void findShortest(int[][] arrayIn)
+    public static int[] findShortest(int[][] arrayIn)
     {
+        int[] shortestArray = new int[6];
+
         for(int i = 0; i < arrayIn.length; i++)
         {
-            int smallest = arrayIn[i][0];
+            int shortest = arrayIn[i][0];
 
-            if(smallest == 0)
+            if(shortest == 0)
             {
-                smallest = arrayIn[i][1];
+                shortest = arrayIn[i][1];
             }
 
             for(int j = 0; j < arrayIn[i].length; j++)
             {
-                if(arrayIn[i][j] < smallest && arrayIn[i][j] != 0)
+                if(arrayIn[i][j] < shortest && arrayIn[i][j] != 0)
                 {
-                    smallest = arrayIn[i][j];
+                    shortest = arrayIn[i][j];
                 }
             }
-            System.out.println(smallest);
+            shortestArray[i] = shortest;
         }
+        return shortestArray;
     }
 
     public static int[][] generateDistArray()
@@ -34,8 +37,16 @@ public class Main
         return arrayOut;
     }
 
+    public static void printShortest(int[] shortestArray)
+    {
+        for(int i = 0; i < shortestArray.length; i++)
+        {
+            System.out.println(shortestArray[i]);
+        }
+    }
+
     public static void main(String[] args)
     {
-        findShortest(generateDistArray());
+        printShortest(findShortest(generateDistArray()));
     }
 }
