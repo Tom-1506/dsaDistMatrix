@@ -2,7 +2,7 @@ import java.util.Random;
 
 public class Main{
     public static int[] findShortest(int[][] arrayIn){
-        int[] shortestArray = new int[6];
+        int[] shortestArray = new int[arrayIn.length];
 
         for(int i = 0; i < arrayIn.length; i++){
             int shortest = arrayIn[i][0];
@@ -40,14 +40,6 @@ public class Main{
         for(int i = 0; i < arrayOut.length; i++){
             arrayOut[i][i] = 0;
         }
-
-        /*int[][] arrayOut =
-                {{0, 58, 184, 271, 378, 379},
-                 {58, 0, 167, 199, 351, 382},
-                 {184, 167, 0, 43, 374, 370},
-                 {271, 199, 43, 0, 394, 390},
-                 {378, 351, 374, 394, 0, 47},
-                 {379, 382, 370, 390, 47, 0}};*/
         return arrayOut;
     }
 
@@ -57,16 +49,23 @@ public class Main{
         }
     }
 
-    /*public static void printArray(int[][] arrayIn){
-        for(int i = 0; i < arrayIn.length; i++){
-            for(int j = 0; j < arrayIn.length; j++){
-                System.out.println(arrayIn[i][j]);
+    public static void timeMatrix(int start, int iterSize, int numTests, int numIterations){
+        for(int i = 0; i < numTests; i++) {
+            long average = 0;
+            for(int j = 0; j < numIterations; j++){
+                int[][] avgArray = generateDistArray(start + (iterSize * i));
+
+                long startTime = System.nanoTime();
+                findShortest(avgArray);
+                long endTime = System.nanoTime();
+
+                average += (endTime - startTime)/numIterations;
             }
+            System.out.println(average);
         }
-    }*/
+    }
 
     public static void main(String[] args){
-        int[][] testArray = generateDistArray(6);
-        printShortest(findShortest(testArray));
+        timeMatrix(100, 100, 10, 100);
     }
 }
